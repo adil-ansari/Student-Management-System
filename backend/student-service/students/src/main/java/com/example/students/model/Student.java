@@ -1,15 +1,28 @@
 package com.example.students.model;
 
+import jakarta.persistence.*;
+
 import java.util.Objects;
 
+@Entity
+@Table(name="students")
 public class Student {
 
-    private final String id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+    @Column
     private String name;
+    @Column
     private String depId;
+    @Column
     private int age;
 
-    public Student(String id, String name, String depId, int age) {
+    public Student(){
+
+    }
+
+    public Student(long id, String name, String depId, int age) {
         this.id = id;
         this.name = name;
         this.depId = depId;
@@ -28,7 +41,7 @@ public class Student {
         this.age = age;
     }
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 
@@ -49,7 +62,7 @@ public class Student {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Student student = (Student) o;
-        return age == student.age && id.equals(student.id) && name.equals(student.name) && depId.equals(student.depId);
+        return id == student.id && age == student.age && name.equals(student.name) && depId.equals(student.depId);
     }
 
     @Override
@@ -60,7 +73,7 @@ public class Student {
     @Override
     public String toString() {
         return "Student{" +
-                "id='" + id + '\'' +
+                "id=" + id +
                 ", name='" + name + '\'' +
                 ", depId='" + depId + '\'' +
                 ", age=" + age +
