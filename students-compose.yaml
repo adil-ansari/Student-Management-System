@@ -1,0 +1,16 @@
+version: '1'
+services:
+  students-db:
+    image: myorg/students-db
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_DB=student-db
+  students-api-server:
+    image: myorg/students
+    ports:
+      - 8080:8080
+    depends_on:
+      - students-db
+    
