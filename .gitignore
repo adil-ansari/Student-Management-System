@@ -1,2 +1,4 @@
 .DS_Store
-backend/**/application.properties
+env-students-api-server
+env-students-db
+
