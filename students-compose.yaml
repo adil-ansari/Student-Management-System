@@ -1,12 +1,24 @@
 version: '1'
 services:
+  nginx-router:
+    ports:
+      - 8081:8081
+    build:
+      context: ./nginx
+      dockerfile: ./Dockerfile
+    depends_on:
+      - students-api-server
   students-db:
-    image: myorg/students-db
+    build:
+      context: ./database/studentdb
+      dockerfile: ./Dockerfile
     ports:
       - 5432:5432
     env_file: ./env-students-db
   students-api-server:
-    image: myorg/students
+    build:
+      context: ./backend/student-service/students
+      dockerfile: ./Dockerfile
     ports:
       - 8080:8080
     depends_on:
