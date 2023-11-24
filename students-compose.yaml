@@ -1,5 +1,19 @@
 version: '1'
 services:
+  students-db:
+    build:
+      context: ./database/studentdb
+      dockerfile: ./Dockerfile
+    env_file: ./env-students-db
+  
+  students-api-server:
+    build:
+      context: ./backend/student-service/students
+      dockerfile: ./Dockerfile
+    depends_on:
+      - students-db
+    env_file: ./env-students-api-server
+  
   nginx-router:
     ports:
       - 8081:8081
@@ -8,20 +22,3 @@ services:
       dockerfile: ./Dockerfile
     depends_on:
       - students-api-server
-  students-db:
-    build:
-      context: ./database/studentdb
-      dockerfile: ./Dockerfile
-    ports:
-      - 5432:5432
-    env_file: ./env-students-db
-  students-api-server:
-    build:
-      context: ./backend/student-service/students
-      dockerfile: ./Dockerfile
-    ports:
-      - 8080:8080
-    depends_on:
-      - students-db
-    env_file: ./env-students-api-server
-    
