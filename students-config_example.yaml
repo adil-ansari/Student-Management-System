@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: students-config
+data:
+  students-db-url: students-db-service
+  students-db-name: <your_database_name>

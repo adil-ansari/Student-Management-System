@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: students-db-deployment
+  labels:
+    app: students-db
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: students-db-pod
+  template:
+    metadata:
+      labels:
+        app: students-db-pod
+    spec:
+      containers:
+      - name: students-db
+        image: postgres:16.1
+        ports:
+        - containerPort: 5432
+        env:
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: students-secret
+                key: students-db-password
+          - name: POSTGRES_DB
+            valueFrom:
+              configMapKeyRef:
+                name: students-config
+                key: students-db-name
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: students-db-service
+spec:
+  selector:
+    app: students-db-pod
+  ports:
+  - protocol: TCP
+    port: 5432
+    targetPort: 5432
