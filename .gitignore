@@ -3,4 +3,3 @@ env-students-api-server
 env-students-db
 students-secret.yaml
 students-config.yaml
-students-api-server.yaml
