@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: students-api-server
-        image: mitrjain1996/student-api-server:v2.0
+        image: mitrjain1996/student-api-server:v3.0
         ports:
         - containerPort: 8080
         env:
