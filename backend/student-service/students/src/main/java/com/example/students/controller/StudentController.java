@@ -3,6 +3,8 @@ package com.example.students.controller;
 import com.example.students.StudentsApplication;
 import com.example.students.model.Student;
 import com.example.students.repository.StudentRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +15,8 @@ import java.util.Optional;
 @RequestMapping("/students")
 public class StudentController {
 
+    Logger logger = LoggerFactory.getLogger(StudentController.class);
+
     private StudentRepository repository;
 
     public StudentController(StudentRepository repository) {
@@ -21,12 +25,16 @@ public class StudentController {
 
     @GetMapping
     public List<Student> findAll(){
+        logger.info("Processing request: GET /students");
         return repository.findAll();
+
     }
 
     @GetMapping("/{id}")
     public Optional<Student> findById(@PathVariable long id){
+        logger.info("Processing request: GET /students/"+id);
         return repository.findById(id);
+
     }
 
     @ResponseStatus(HttpStatus.CREATED)
